@@ -1,91 +1,79 @@
 //hash.cpp
 
+
 #include "hash.hpp"
 
+// Initialize all to -1.
 HashTable::HashTable()
-{
-    array = new LinkedList[10];
+{    
+    for(int i=0; i<10;i++)
+        table[i] = -1;
 }
 
-int HashTable::hash( string itemKey )
+// Adds an item to the Hash Table with Linear Probing.
+bool HashTable::insertItemLin(int toInsert)
 {
-    int value = 0;
-    for ( int i = 0; i < 10; i++ )
-        value += itemKey[i];
-    return (value * itemKey.length() ) % length;
+    if (toInsert == -1)
+        return false;
+
+    int lastDig = (toInsert % 10);
+
+    if(table[lastDig] == -1)
+    {
+        table[lastDig] = toInsert;
+        return true;
+    }
+    else
+    {
+        for(int i=(lastDig+1); i<10; i++)
+        {
+            if(table[i] == -1)
+            {
+                table[i] = toInsert;
+                return true;
+            }
+        }
+
+        for(int i=0; i<lastDig; i++)
+        {
+            if(table[i] == -1)
+            {
+                table[i] = toInsert;
+                return true;
+            }
+        }  
+    }
+    return false;
 }
 
-// Adds an item to the Hash Table.
-void HashTable::insertItem( Item * newItem )
+// Adds an item to the Hash Table with Quadratic Probing. 
+bool HashTable::insertItemQuad(int toInsert)
 {
-    int index = hash( newItem -> key );
-    array[ index ].insertItem( newItem );
-}
-
-// Deletes an Item by key from the Hash Table.
-// Returns true if the operation is successful.
-bool HashTable::removeItem( string itemKey )
-{
-    int index = hash( itemKey );
-    return array[ index ].removeItem( itemKey );
-}
-
-// Returns an item from the Hash Table by key.
-// If the item isn't found, a null pointer is returned.
-Item * HashTable::getItemByKey( string itemKey )
-{
-    int index = hash( itemKey );
-    return array[ index ].getItem( itemKey );
+    cout<<"This no worky yet"<<endl;
 }
 
 // Display the contents of the Hash Table to console window.
-void HashTable::printTable()
+void HashTable::printTable(bool chain)
 {
-    cout << "\n\nHash Table:\n";
-    for ( int i = 0; i < length; i++ )
+    if(!chain)
     {
-        cout << "Bucket " << i + 1 << ": ";
-        array[i].printList();
+        printf("\n");
+        for(int i=0; i<10; i++)
+        {
+            if(table[i] == -1)
+                printf("   %d\n", i);
+            else
+                printf("   %d  %d\n", i, table[i]);
+        }
+    }
+    else
+    {
+        cout<<"This no worky yet"<<endl;
     }
 }
 
-// Prints a histogram illustrating the Item distribution.
-void HashTable::printHistogram()
-{
-    cout << "\n\nHash Table Contains ";
-    cout << getNumberOfItems() << " Items total\n";
-    for ( int i = 0; i < length; i++ )
-    {
-        cout << i + 1 << ":\t";
-        for ( int j = 0; j < array[i].getLength(); j++ )
-            cout << " X";
-        cout << "\n";
-    }
-}
 
-// Returns the number of locations in the Hash Table.
-int HashTable::getLength()
-{
-    return length;
-}
 
-// Returns the number of Items in the Hash Table.
-int HashTable::getNumberOfItems()
-{
-    int itemCount = 0;
-    for ( int i = 0; i < length; i++ )
-    {
-        itemCount += array[i].getLength();
-    }
-    return itemCount;
-}
 
-// De-allocates all memory used for the Hash Table.
-HashTable::~HashTable()
-{
-    delete [] array;
-}
 
-//*****************************************************************
-// End of File
-//*****************************************************************
+

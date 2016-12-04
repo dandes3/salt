@@ -1,26 +1,26 @@
 //hash.hpp
 
-#include "linkedList.hpp"
+#include <iostream>
+using namespace std;
+
+//extern int table[10];
 
 class HashTable
 {
+
 private:
-    
-    LinkedList * array;
-    
-    int hash( int itemKey );
-    
+
+	int table[10];
+     
 public:
     
     HashTable(); // Constructor
-
-    ~HashTable(); // Destructor
     
     bool insertItemLin(int toInsert);
 
     bool insertItemQuad(int toInsert);
     
-    void printTable();
+    void printTable(bool chain);
     
 };
 
