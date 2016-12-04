@@ -1,3 +1,4 @@
+//hashmain.cpp
 
 #include "hash.hpp"
 
@@ -8,6 +9,7 @@ int main()
 
     HashTable hash;
 
+    cout << "" << endl;
     cout << "Hash Tables" << endl;
     cout << "" << endl;
     cout << "Please enter up to 10 non-negative integers, followed by -1" << endl;
@@ -43,5 +45,28 @@ int main()
         }
     }
     hash.printTable(false);
+    cout << "" << endl;
+
+    hash.purge();
+
+    cout << "" << endl;
+    cout << "Hash Table with Quadratic Probing" << endl;
+
+    for(int i=0; i<10; i++)
+    {
+        if(!(hash.insertItemQuad(buffAr[i])))
+        {
+            if(buffAr[i] != -1)
+                printf("  %d could not be inserted in the table\n", buffAr[i]);
+            else
+                continue;
+        }
+    }
+
+    hash.printTable(false);
+    cout << "" << endl;
+
+    hash.purge();
+    
     return 0;
 }

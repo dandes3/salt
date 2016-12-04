@@ -1,26 +1,30 @@
 //hash.hpp
 
 #include <iostream>
+#include <stdio.h>
+#include <math.h>
 using namespace std;
-
-//extern int table[10];
 
 class HashTable
 {
 
 private:
 
-	int table[10];
+	int table[10]; // Internal array to track hash placement
      
 public:
     
     HashTable(); // Constructor
-    
-    bool insertItemLin(int toInsert);
 
-    bool insertItemQuad(int toInsert);
+    void purge(); // Psuedo destructor, resets all values to -1
     
-    void printTable(bool chain);
+    bool insertItemLin(int toInsert); // Inserts item into hash table using linear probing
+
+    bool insertItemQuad(int toInsert); // Inserts item into hash table using quadratic probing
+
+    bool insertItemDub(int toInsert); // Inserts item into hash table with second hash function
     
+    void printTable(bool chain); // Prints hash table 
+     
 };
 
