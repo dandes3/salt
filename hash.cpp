@@ -2,6 +2,47 @@
 
 #include "hash.hpp"
 
+
+void List::Print()
+{
+    Node *tmp = head;
+    printf(" ")
+
+    while(tmp->Next())
+    {
+        printf(" -> %d", tmp->Data());
+    }
+
+    printf(" ->_");
+}
+
+int List::head()
+{
+    return this->head;
+}
+
+void List::Append(int data)
+{
+    // Create a new node
+    Node* newNode = new Node();
+    newNode->SetData(data);
+    newNode->SetNext(NULL);
+
+    // Create a temp pointer
+    Node *tmp = head;
+
+    if (tmp != NULL) 
+    {
+        while (tmp->Next() != NULL)
+            tmp = tmp->Next();
+
+        tmp->SetNext(newNode);
+    }
+
+    else 
+        head = newNode;
+}
+
 // Initialize all to -1.
 HashTable::HashTable()
 {    
@@ -83,6 +124,93 @@ bool HashTable::insertItemQuad(int toInsert)
                 table[newMod] = toInsert;
                 return true;
             }
+        }
+    }
+    return false;
+}
+
+bool HashTable::insertItemDub(int toInsert)
+{
+    if (toInsert == -1)
+        return false;
+
+    int lastDig = (toInsert % 10);
+
+    if(table[lastDig] == -1)
+    {
+        table[lastDig] = toInsert;
+        return true;
+    }
+    else
+    {
+        int j;
+        int wrap = 0;
+        int count = 0;
+        int jumpVal = (7-(toInsert % 7));
+
+        while(wrap<3)
+        {
+            count++;
+            j = lastDig + (jumpVal * count);
+
+            if(j==10)
+                j = 0;
+
+            if(j>10)
+            {
+                j = j%10;
+                wrap++;
+            }
+
+            if(table[j] == -1)
+            {
+                table[j] = toInsert;
+                return true;
+            }  
+        }
+    }
+    return false;
+}
+
+bool HashTable::insertItemChain(int toInsert)
+{
+    if (toInsert == -1)
+        return false;
+
+    int lastDig = (toInsert % 10);
+
+    if(table[lastDig] == -1)
+    {
+        List list;
+        list.Append(toInsert);
+        table[lastDig] = list;
+    }
+    else
+    {
+        int j;
+        int wrap = 0;
+        int count = 0;
+        int jumpVal = (7-(toInsert % 7));
+
+        while(wrap<3)
+        {
+            count++;
+            j = lastDig + (jumpVal * count);
+
+            if(j==10)
+                j = 0;
+
+            if(j>10)
+            {
+                j = j%10;
+                wrap++;
+            }
+
+            if(table[j] == -1)
+            {
+                table[j] = toInsert;
+                return true;
+            }  
         }
     }
     return false;

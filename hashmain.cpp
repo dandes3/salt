@@ -39,7 +39,10 @@ int main()
         if(!(hash.insertItemLin(buffAr[i])))
         {
             if(buffAr[i] != -1)
+            {
+                printf("\n");
                 printf("  %d could not be inserted in the table\n", buffAr[i]);
+            }
             else
                 continue;
         }
@@ -57,7 +60,10 @@ int main()
         if(!(hash.insertItemQuad(buffAr[i])))
         {
             if(buffAr[i] != -1)
+            {
+                printf("\n");
                 printf("  %d could not be inserted in the table\n", buffAr[i]);
+            }
             else
                 continue;
         }
@@ -67,6 +73,46 @@ int main()
     cout << "" << endl;
 
     hash.purge();
+
+    cout << "" << endl;
+    cout << "Extra Credit: Hash Table with Double Hashing" << endl;
+
+    for(int i=0; i<10; i++)
+    {
+        if(!(hash.insertItemDub(buffAr[i])))
+        {
+            if(buffAr[i] != -1)
+            {
+                printf("\n");
+                printf("  %d could not be inserted in the table\n", buffAr[i]);
+            }
+            else
+                continue;
+        }
+    }
+
+    hash.printTable(false);
+    cout << "" << endl;
+
+    hash.purge();
+
+    cout << "" << endl;
+    cout << "Extra Credit: Hash Table with Seperate Chaining" << endl;
+
+    
+    for(int i=0; i<10; i++)
+    {
+        if(!(hash.insertItemChain(buffAr[i])))
+        {
+            if(buffAr[i] != -1)
+            {
+                printf("\n");
+                printf("  %d could not be inserted in the table\n", buffAr[i]);
+            }
+            else
+                continue;
+        }
+    }  
     
     return 0;
 }

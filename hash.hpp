@@ -5,15 +5,46 @@
 #include <math.h>
 using namespace std;
 
+
+
+class Node
+{
+private:
+	int data;
+	Node* next;
+
+public:
+	Node() {};
+	void SetData(int aData) { data = aData; };
+    void SetNext(Node* aNext) { next = aNext; };
+    int Data() { return data; };
+    Node* Next() { return next; };
+};
+
+class List
+{
+private:
+	Node *head;
+
+public:
+	List() {head = NULL};
+
+	void Append(int data);
+
+	int head();
+
+	void Print();
+
+};
+
+
 class HashTable
 {
 
 private:
-
 	int table[10]; // Internal array to track hash placement
      
 public:
-    
     HashTable(); // Constructor
 
     void purge(); // Psuedo destructor, resets all values to -1
